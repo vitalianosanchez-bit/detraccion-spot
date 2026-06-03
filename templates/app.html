@@ -495,10 +495,26 @@ var editingUsrId=0, editingEmpId=0;
 // ===== INIT =====
 window.onload = function() {
   cargarDatos();
-  // Si superadmin, cargar empresa seleccionada
+  cargarEmpresaActual();
   var sel = document.getElementById("emp-sel-global");
   if(sel) cambiarEmpresaGlobal(sel.value);
 };
+
+function cargarEmpresaActual() {
+  fetch("/api/empresa_actual").then(function(r){return r.json();}).then(function(e){
+    if(!e || e.error) return;
+    document.getElementById("emp-nombre").value = e.nombre || "";
+    document.getElementById("emp-ruc").value = e.ruc || "";
+    document.getElementById("emp-cuenta").value = e.cuenta || "";
+    // Periodo: mes actual en formato AAAAMM
+    var hoy = new Date();
+    var mm = String(hoy.getMonth()+1).padStart(2,"0");
+    var periodo = String(hoy.getFullYear())+mm;
+    if(!document.getElementById("emp-periodo").value || document.getElementById("emp-periodo").value.length !== 6) {
+      document.getElementById("emp-periodo").value = periodo;
+    }
+  });
+}
 
 function cargarDatos() {
   fetch("/api/proveedores").then(r=>r.json()).then(function(d){
@@ -523,6 +539,7 @@ function cambiarEmpresaGlobal(eid) {
   if(!eid) return;
   fetch("/api/sel_empresa/"+eid, {method:"POST"}).then(function(){
     cargarDatos();
+    cargarEmpresaActual();
     rows=[];
     document.getElementById("panel-carga").style.display="block";
     document.getElementById("stats-bar").style.display="none";

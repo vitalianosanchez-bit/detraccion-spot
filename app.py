@@ -307,3 +307,12 @@ def eliminar_bs(bid):
 # ─── RUN ─────────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
+# ─── API EMPRESA ACTUAL ───────────────────────────────────────────────────────
+@app.route('/api/empresa_actual', methods=['GET'])
+@login_required
+def get_empresa_actual():
+    e = Empresa.query.get(eid())
+    if not e:
+        return jsonify({'error': 'No encontrada'}), 404
+    return jsonify({'id': e.id, 'nombre': e.nombre, 'ruc': e.ruc, 'cuenta': e.cuenta or ''})
