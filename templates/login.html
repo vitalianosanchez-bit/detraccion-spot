@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPOT Detracciones — Ingresar</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0f1117;color:#e2e8f0;font-family:'IBM Plex Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.card{background:#171b25;border:1px solid #2a3045;border-radius:10px;padding:40px;width:100%;max-width:400px;}
+.logo{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#22d3ee;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+h1{font-size:22px;font-weight:600;margin-bottom:4px;}
+.sub{font-size:13px;color:#8892a4;margin-bottom:32px;}
+.field{margin-bottom:16px;}
+label{display:block;font-size:11px;color:#4a5568;font-family:'IBM Plex Mono',monospace;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;}
+input{width:100%;background:#1e2333;border:1px solid #2a3045;color:#e2e8f0;font-family:'IBM Plex Mono',monospace;font-size:13px;padding:10px 14px;border-radius:5px;outline:none;transition:border-color 0.2s;}
+input:focus{border-color:#3b82f6;}
+.btn{width:100%;background:#3b82f6;color:white;border:none;padding:11px;border-radius:5px;font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-top:8px;transition:background 0.15s;}
+.btn:hover{background:#2563eb;}
+.error{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;padding:10px 14px;border-radius:5px;font-size:12px;margin-bottom:16px;}
+.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a5568;font-family:'IBM Plex Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">SUNAT · SPOT</div>
+  <h1>Sistema de Detracciones</h1>
+  <p class="sub">Ingresa con tu usuario para continuar</p>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  <form method="POST">
+    <div class="field"><label>Usuario</label>
+      <input name="username" type="text" placeholder="tu_usuario" required></div>
+    <div class="field"><label>Contraseña</label>
+      <input name="password" type="password" placeholder="••••••••" required></div>
+    <button type="submit" class="btn">Ingresar</button>
+  </form>
+  <div class="footer">Sistema de Detracciones SPOT v1.0</div>
+</div>
+</body>
+</html>
